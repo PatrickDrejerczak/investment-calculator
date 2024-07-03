@@ -15,8 +15,7 @@ import { InvestmentResultService } from '../../services/investment-result.servic
 export class InvestmentResultsComponent {
   private investmentService = inject(InvestmentResultService);
   @Input() investmentValues!: InvestmentModel;
-
-  investmentData: InvestmentResultModel[] = [];
+  @Input() investmentData: InvestmentResultModel[] = [];
 
   calculateInvestmentData() {
     this.investmentData = this.investmentService.calculateInvestmentResults(

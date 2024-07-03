@@ -1,8 +1,8 @@
 export interface InvestmentModel {
-  years: number;
-  initialInvestment: number;
-  annualInvestment: number;
-  expectedReturn: number;
+  years?: number;
+  initialInvestment?: number;
+  annualInvestment?: number;
+  expectedReturn?: number;
 }
 
 export interface InvestmentResultModel {

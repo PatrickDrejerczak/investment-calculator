@@ -9,16 +9,16 @@ export class InvestmentResultService {
     const annualData = [];
     let investmentValue = investmentValues.initialInvestment;
 
-    for (let i = 0; i < investmentValues.years; i++) {
+    for (let i = 0; i < investmentValues.years!; i++) {
       const year = i + 1;
       const interestEarnedInYear =
-        investmentValue * (investmentValues.expectedReturn / 100);
-      investmentValue +=
-        interestEarnedInYear + investmentValues.annualInvestment;
+        investmentValue! * (investmentValues.expectedReturn! / 100);
+      investmentValue! +=
+        interestEarnedInYear + investmentValues.annualInvestment!;
       const totalInterest =
-        investmentValue -
-        investmentValues.annualInvestment * year -
-        investmentValues.initialInvestment;
+        investmentValue! -
+        investmentValues.annualInvestment! * year -
+        investmentValues.initialInvestment!;
       annualData.push({
         year: year,
         interest: interestEarnedInYear,
@@ -26,8 +26,8 @@ export class InvestmentResultService {
         annualInvestment: investmentValues.annualInvestment,
         totalInterest: totalInterest,
         totalAmountInvested:
-          investmentValues.initialInvestment +
-          investmentValues.annualInvestment * year,
+          investmentValues.initialInvestment! +
+          investmentValues.annualInvestment! * year,
       });
     }
 
