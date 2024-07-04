@@ -1,4 +1,4 @@
-import { Component, Input, Output, inject } from '@angular/core';
+import { Component, Input, input, inject } from '@angular/core';
 import {
   InvestmentModel,
   InvestmentResultModel,
@@ -14,12 +14,12 @@ import { InvestmentResultService } from '../../services/investment-result.servic
 })
 export class InvestmentResultsComponent {
   private investmentService = inject(InvestmentResultService);
-  @Input() investmentValues!: InvestmentModel;
+  investmentValues = input.required<InvestmentModel>();
   @Input() investmentData: InvestmentResultModel[] = [];
 
   calculateInvestmentData() {
     this.investmentData = this.investmentService.calculateInvestmentResults(
-      this.investmentValues
+      this.investmentValues()
     );
   }
 }

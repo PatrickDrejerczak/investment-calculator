@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentResultsComponent } from '../investment-results/investment-results.component';
 import {
@@ -15,7 +15,7 @@ import { InvestmentResultService } from '../../services/investment-result.servic
   styleUrl: './user-input.component.css',
 })
 export class UserInputComponent {
-  @Output() calculate = new EventEmitter<void>();
+  calculate = output<void>();
   investmentValues: InvestmentModel = {};
   investmentData: InvestmentResultModel[] = [];
   initialInvestment = 0;
