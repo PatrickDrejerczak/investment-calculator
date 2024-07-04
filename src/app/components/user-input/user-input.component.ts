@@ -1,10 +1,7 @@
-import { Component, output, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentResultsComponent } from '../investment-results/investment-results.component';
-import {
-  InvestmentModel,
-  InvestmentResultModel,
-} from '../../models/investment.model';
+import { InvestmentModel } from '../../models/investment.model';
 import { InvestmentResultService } from '../../services/investment-result.service';
 
 @Component({
@@ -15,35 +12,31 @@ import { InvestmentResultService } from '../../services/investment-result.servic
   styleUrl: './user-input.component.css',
 })
 export class UserInputComponent {
-  calculate = output<void>();
-  investmentValues: InvestmentModel = {};
-  investmentData: InvestmentResultModel[] = [];
-  initialInvestment = 0;
-  annualInvestment = 0;
-  expectedReturn = 0;
-  duration = 0;
+  investmentValues = signal<InvestmentModel | {}>({});
+  initialInvestment = signal(0);
+  annualInvestment = signal(0);
+  expectedReturn = signal(5);
+  duration = signal(10);
 
   private investmentService = inject(InvestmentResultService);
 
   onSubmit() {
-    this.investmentValues = {
-      initialInvestment: this.initialInvestment,
-      annualInvestment: this.annualInvestment,
-      expectedReturn: this.expectedReturn,
-      years: this.duration,
-    };
-
-    console.log(this.investmentValues);
+    this.investmentValues.set({
+      initialInvestment: this.initialInvestment(),
+      annualInvestment: this.annualInvestment(),
+      expectedReturn: this.expectedReturn(),
+      years: this.duration(),
+    });
 
     this.calculateInvestmentData();
+
+    this.initialInvestment.set(0);
+    this.annualInvestment.set(0);
+    this.expectedReturn.set(0);
+    this.duration.set(0);
   }
 
   calculateInvestmentData() {
-    console.log('I AM HERE');
-    this.investmentData = this.investmentService.calculateInvestmentResults(
-      this.investmentValues
-    );
-
-    console.log(this.investmentData);
+    this.investmentService.calculateInvestmentResults(this.investmentValues());
   }
 }
